@@ -3,11 +3,11 @@ import { supabase } from '../supabase'
 import './PredictionChart.css'
 
 const CHART_WIDTH = 320
-const CHART_HEIGHT = 160
+const CHART_HEIGHT = 110
 const PAD_LEFT = 34
 const PAD_RIGHT = 34
-const PAD_TOP = 12
-const PAD_BOTTOM = 24
+const PAD_TOP = 10
+const PAD_BOTTOM = 22
 
 function buildPath(values, min, max) {
   const innerW = CHART_WIDTH - PAD_LEFT - PAD_RIGHT
@@ -22,6 +22,51 @@ function buildPath(values, min, max) {
       return `${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`
     })
     .join(' ')
+}
+
+function MiniChart({ rows, values, min, max, colorClass, labelIndexes, step }) {
+  const path = buildPath(values, min, max)
+
+  return (
+    <svg
+      className="prediction-svg"
+      viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`}
+      preserveAspectRatio="xMidYMid meet"
+    >
+      {[0, 0.5, 1].map((f) => {
+        const y = PAD_TOP + (CHART_HEIGHT - PAD_TOP - PAD_BOTTOM) * f
+        return (
+          <line
+            key={f}
+            x1={PAD_LEFT}
+            y1={y}
+            x2={CHART_WIDTH - PAD_RIGHT}
+            y2={y}
+            className="prediction-gridline"
+          />
+        )
+      })}
+
+      {labelIndexes.map((i) => {
+        const x = PAD_LEFT + step * i
+        const t = rows[i].predicted_time
+        const hour = t ? new Date(t).getHours() : ''
+        return (
+          <text
+            key={i}
+            x={x}
+            y={CHART_HEIGHT - 6}
+            className="prediction-axis-label"
+            textAnchor="middle"
+          >
+            {hour}시
+          </text>
+        )
+      })}
+
+      <path d={path} className={`prediction-line ${colorClass}`} />
+    </svg>
+  )
 }
 
 export default function PredictionChart() {
@@ -89,9 +134,6 @@ export default function PredictionChart() {
   const powerMin = Math.min(...power)
   const powerMax = Math.max(...power, powerMin + 1)
 
-  const insolationPath = buildPath(insolation, 0, insolationMax)
-  const powerPath = buildPath(power, powerMin, powerMax)
-
   const innerW = CHART_WIDTH - PAD_LEFT - PAD_RIGHT
   const step = rows.length > 1 ? innerW / (rows.length - 1) : 0
 
@@ -111,57 +153,36 @@ export default function PredictionChart() {
         </button>
       </div>
 
-      <svg
-        className="prediction-svg"
-        viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`}
-        preserveAspectRatio="xMidYMid meet"
-      >
-        {/* 가이드 라인 */}
-        {[0, 0.5, 1].map((f) => {
-          const y = PAD_TOP + (CHART_HEIGHT - PAD_TOP - PAD_BOTTOM) * f
-          return (
-            <line
-              key={f}
-              x1={PAD_LEFT}
-              y1={y}
-              x2={CHART_WIDTH - PAD_RIGHT}
-              y2={y}
-              className="prediction-gridline"
-            />
-          )
-        })}
-
-        {/* x축 시간 라벨 */}
-        {labelIndexes.map((i) => {
-          const x = PAD_LEFT + step * i
-          const t = rows[i].predicted_time
-          const hour = t ? new Date(t).getHours() : ''
-          return (
-            <text
-              key={i}
-              x={x}
-              y={CHART_HEIGHT - 6}
-              className="prediction-axis-label"
-              textAnchor="middle"
-            >
-              {hour}시
-            </text>
-          )
-        })}
-
-        <path d={insolationPath} className="prediction-line insolation-line" />
-        <path d={powerPath} className="prediction-line power-line" />
-      </svg>
-
-      <div className="prediction-legend">
-        <span className="legend-item">
+      <div className="prediction-section">
+        <div className="prediction-section-title">
           <span className="legend-dot insolation-dot" />
-          일사량 (W/m², 최대 {maxInsolation.toFixed(0)})
-        </span>
-        <span className="legend-item">
+          일사량 (W/m², 최대 {maxInsolation.toFixed(2)})
+        </div>
+        <MiniChart
+          rows={rows}
+          values={insolation}
+          min={0}
+          max={insolationMax}
+          colorClass="insolation-line"
+          labelIndexes={labelIndexes}
+          step={step}
+        />
+      </div>
+
+      <div className="prediction-section">
+        <div className="prediction-section-title">
           <span className="legend-dot power-dot" />
           발전량 (W, 합계 {totalPower.toFixed(2)})
-        </span>
+        </div>
+        <MiniChart
+          rows={rows}
+          values={power}
+          min={powerMin}
+          max={powerMax}
+          colorClass="power-line"
+          labelIndexes={labelIndexes}
+          step={step}
+        />
       </div>
     </div>
   )
