@@ -1,0 +1,282 @@
+/* =====================================================
+   Apple Home‑app inspired design system
+   ===================================================== */
+
+:root {
+  --bg: #f2f2f7;
+  --card-bg: rgba(255, 255, 255, 0.78);
+  --card-bg-solid: #ffffff;
+  --track-bg: #e9e9eb;
+  --text-primary: #1c1c1e;
+  --text-secondary: #8a8a8e;
+  --separator: rgba(60, 60, 67, 0.1);
+  --accent-blue: #007aff;
+  --accent-orange: #ff9500;
+  --accent-green: #34c759;
+  --accent-red: #ff3b30;
+  --radius-lg: 22px;
+  --radius-md: 16px;
+  --radius-sm: 12px;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.04), 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #000000;
+    --card-bg: rgba(28, 28, 30, 0.86);
+    --card-bg-solid: #1c1c1e;
+    --track-bg: #3a3a3c;
+    --text-primary: #f5f5f7;
+    --text-secondary: #98989d;
+    --separator: rgba(255, 255, 255, 0.1);
+    --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 10px 24px rgba(0, 0, 0, 0.35);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text',
+    'Segoe UI', Roboto, sans-serif;
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+}
+
+.container {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 24px 16px 48px;
+}
+
+/* ====== Large title, like iOS Home tab ====== */
+.container h1 {
+  font-size: 30px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 4px 0 24px;
+  color: var(--text-primary);
+}
+
+/* ====== Section grouping ====== */
+.section {
+  margin-bottom: 22px;
+}
+
+.section-label {
+  margin: 0 0 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+/* ====== Card ====== */
+.card {
+  position: relative;
+  background: var(--card-bg-solid);
+  border-radius: var(--radius-lg);
+  padding: 18px 18px 20px;
+  box-shadow: var(--shadow-card);
+  transition: opacity 0.25s ease, transform 0.2s ease;
+}
+
+.card-title {
+  margin: 0 0 12px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Auto Mode – highlighted hero row */
+.auto-card {
+  padding: 14px 16px;
+  display: flex;
+}
+
+.auto-card h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Disabled state */
+.disabled {
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+/* ====== Rows ====== */
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.row:first-of-type {
+  margin-top: 0;
+}
+
+.space {
+  justify-content: space-between;
+}
+
+/* ====== LED rows ====== */
+.led-row {
+  padding: 6px 0;
+}
+
+.led-row span {
+  width: 56px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* ====== Slider (Apple‑style range) ====== */
+.full-range {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--track-bg);
+  outline: none;
+  accent-color: var(--accent-blue);
+}
+
+.full-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  cursor: pointer;
+}
+
+.full-range::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border: none;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+}
+
+/* ====== Segmented mode buttons (COOL / HEATER) ====== */
+.mode-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 4px;
+  background: var(--track-bg);
+  border-radius: var(--radius-md);
+}
+
+.mode-btn {
+  flex: 1;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 6px;
+  background: transparent;
+  color: var(--text-secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mode-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+/* Selected state — Apple keeps this subtle: white pill + soft shadow */
+.active1 {
+  background: var(--card-bg-solid);
+  color: var(--accent-blue);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.active2 {
+  background: var(--card-bg-solid);
+  color: var(--accent-orange);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+/* ====== Temperature readout ====== */
+.temp-text {
+  text-align: right;
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ====== Compact card (Door / Window) ====== */
+.compact {
+  padding-top: 14px;
+  padding-bottom: 16px;
+}
+
+.power-row {
+  justify-content: flex-end;
+}
+
+.power-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.power-text {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+/* ====== Full‑width feature button (Air Purifier) ====== */
+.purifier-btn {
+  width: 100%;
+  margin-top: 14px;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 13px 0;
+  background: var(--track-bg);
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.purifier-btn img {
+  width: 22px;
+  height: 22px;
+}
+
+.purifier-active {
+  background: var(--accent-green);
+  color: white;
+}
