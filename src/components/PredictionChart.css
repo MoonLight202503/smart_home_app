@@ -42,6 +42,24 @@
   transform: rotate(180deg);
 }
 
+.prediction-section {
+  margin-top: 14px;
+}
+
+.prediction-section + .prediction-section {
+  padding-top: 14px;
+  border-top: 1px solid var(--separator, rgba(60, 60, 67, 0.1));
+}
+
+.prediction-section-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-secondary, #8a8a8e);
+}
+
 .prediction-svg {
   width: 100%;
   height: auto;
@@ -72,22 +90,6 @@
 
 .power-line {
   stroke: #007aff;
-}
-
-.prediction-legend {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin-top: 14px;
-}
-
-.legend-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  font-weight: 500;
-  color: var(--text-secondary, #8a8a8e);
 }
 
 .legend-dot {
