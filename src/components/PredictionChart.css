@@ -1,0 +1,106 @@
+.prediction-card {
+  padding-bottom: 16px;
+}
+
+.prediction-status {
+  padding: 24px 0;
+  text-align: center;
+  font-size: 13px;
+  color: #9ca3af;
+}
+
+.prediction-error {
+  color: #ef4444;
+}
+
+.prediction-retry {
+  display: block;
+  margin: 0 auto;
+  border: none;
+  border-radius: 10px;
+  background: #f3f4f6;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #374151;
+}
+
+.prediction-refresh {
+  border: none;
+  background: #f3f4f6;
+  color: #6b7280;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  font-size: 14px;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.prediction-refresh:active {
+  transform: rotate(180deg);
+  background: #e5e7eb;
+}
+
+.prediction-svg {
+  width: 100%;
+  height: auto;
+  margin-top: 4px;
+  overflow: visible;
+}
+
+.prediction-gridline {
+  stroke: #eef0f4;
+  stroke-width: 1;
+}
+
+.prediction-axis-label {
+  font-size: 8px;
+  fill: #9ca3af;
+}
+
+.prediction-line {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.insolation-line {
+  stroke: #f59e0b;
+}
+
+.power-line {
+  stroke: #3b82f6;
+}
+
+.prediction-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #4b5563;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.insolation-dot {
+  background: #f59e0b;
+}
+
+.power-dot {
+  background: #3b82f6;
+}
